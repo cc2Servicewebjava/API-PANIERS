@@ -13,7 +13,7 @@ public class Basket {
 
     protected String update_date;
 
-    protected int authentication;
+    protected boolean authentication;
 
     protected ArrayList<Product> product_list;
 
@@ -22,7 +22,7 @@ public class Basket {
     }
 
 
-    public Basket(int id, String update_date, int authentication ,ArrayList<Product> product_list ) {
+    public Basket(int id, String update_date, boolean authentication ,ArrayList<Product> product_list ) {
         this.id = id;
         this.update_date = update_date;
         this.authentication = authentication;
@@ -40,7 +40,7 @@ public class Basket {
         return update_date;
     }
 
-    public int getAuthentication() {
+    public boolean getAuthentication() {
         return authentication;
     }
     public ArrayList getProduct_list(){
@@ -58,7 +58,7 @@ public class Basket {
     }
 
 
-    public void setAuthentication(int authentication) {
+    public void setAuthentication(boolean authentication) {
         this.authentication = authentication;
     }
 

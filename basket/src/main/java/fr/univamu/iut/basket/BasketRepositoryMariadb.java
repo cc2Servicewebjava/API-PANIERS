@@ -43,7 +43,7 @@ public class BasketRepositoryMariadb implements BasketRepositoryInterface, Close
                 // récupération des informations du panier
                 if (selectedBasket == null) {
                     String update_date = result.getString("update_date");
-                    int authentication = result.getInt("authentication");
+                    boolean authentication = result.getBoolean("authentication");
                     selectedBasket = new Basket(id, update_date, authentication, product_list);
                 }
                 // ajout du produit à la liste
@@ -66,7 +66,7 @@ public class BasketRepositoryMariadb implements BasketRepositoryInterface, Close
         Basket selectedBasket = null;
         ArrayList<Basket> listBaskets ;
 
-        String query = "SELECT Basket.*, ProductList.id AS product_id, ProductList.name AS product_name, ProductList.price AS product_price, ProductList.quantity AS product_quantity FROM Basket JOIN ProductList ON Basket.id = ProductList.id_basket WHERE Basket.id = ?";
+        String query = "SELECT Basket.*, ProductList.id AS product_id, ProductList.name AS product_name, ProductList.price AS product_price, ProductList.quantity AS product_quantity FROM Basket JOIN ProductList ON Basket.id = ProductList.id_basket";
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
@@ -82,7 +82,7 @@ public class BasketRepositoryMariadb implements BasketRepositoryInterface, Close
                 if (selectedBasket == null) {
                     int id = result.getInt("id");
                     String update_date = result.getString("update_date");
-                    int authentication = result.getInt("authentication");
+                    boolean authentication = result.getBoolean("authentication");
                     selectedBasket = new Basket(id, update_date, authentication, product_list);
 
                     listBaskets.add(selectedBasket);
