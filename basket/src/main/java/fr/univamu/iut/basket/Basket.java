@@ -72,6 +72,6 @@ public class Basket {
                 "id='" + id + '\'' +
                 ", update_date='" + update_date + '\'' +
                 ", authentication='" + authentication + '\'' +
-                '}';
+                '}'+'\n';
     }
 }

@@ -62,43 +62,35 @@ public class BasketRepositoryMariadb implements BasketRepositoryInterface, Close
 
 
 
-    public ArrayList<Basket> getAllBaskets(){
-        Basket selectedBasket = null;
-        ArrayList<Basket> listBaskets ;
-
+    public ArrayList<Basket> getAllBaskets() {
+        ArrayList<Basket> listBaskets = new ArrayList<>();
         String query = "SELECT Basket.*, ProductList.id AS product_id, ProductList.name AS product_name, ProductList.price AS product_price, ProductList.quantity AS product_quantity FROM Basket JOIN ProductList ON Basket.id = ProductList.id_basket";
 
-        // construction et exécution d'une requête préparée
-        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
-
+        try (PreparedStatement ps = dbConnection.prepareStatement(query)) {
             ResultSet result = ps.executeQuery();
-
-            listBaskets = new ArrayList<>();
-
-            ArrayList<Product> product_list = new ArrayList<>();
-
+            int currentBasketId = -1;
+            ArrayList<Product> currentProductList = new ArrayList<>();
             while (result.next()) {
-                // récupération des informations du panier
-                if (selectedBasket == null) {
-                    int id = result.getInt("id");
-                    String update_date = result.getString("update_date");
-                    boolean authentication = result.getBoolean("authentication");
-                    selectedBasket = new Basket(id, update_date, authentication, product_list);
 
+                int basketId = result.getInt("id");
+                if (basketId != currentBasketId) {
+                    currentBasketId = basketId;
+                    currentProductList = new ArrayList<>();
+                    Basket selectedBasket = new Basket(basketId, result.getString("update_date"), result.getBoolean("authentication"), currentProductList);
                     listBaskets.add(selectedBasket);
-
                 }
-                // ajout du produit à la liste
-                int product_id = result.getInt("product_id");
-                String product_name = result.getString("product_name");
-                int product_price = result.getInt("product_price");
-                int product_quantity = result.getInt("product_quantity");
-                product_list.add(new Product(product_id, product_name, product_price, product_quantity,result.getInt("id")));
+                int productId = result.getInt("product_id");
+                String productName = result.getString("product_name");
+                int productPrice = result.getInt("product_price");
+                int productQuantity = result.getInt("product_quantity");
+                Product product = new Product(productId, productName, productPrice, productQuantity, basketId);
+                currentProductList.add(product);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return listBaskets;
     }
+
 
 }

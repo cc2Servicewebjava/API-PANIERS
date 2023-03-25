@@ -76,6 +76,6 @@ public class Product {
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", id_basket=" + id_basket +
-                '}';
+                '}'+'\n';
     }
 }
