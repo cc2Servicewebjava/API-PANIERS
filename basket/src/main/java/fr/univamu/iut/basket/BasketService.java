@@ -47,4 +47,15 @@ public class BasketService {
         return result;
     }
 
+    public Boolean createBasket(Basket basket){return basketRepo.createBasket(basket);}
+
+    public Boolean AddProduct(Product product){
+        return basketRepo.AddProduct(product);
+    }
+
+    public boolean deleteBasket(int id){return basketRepo.deleteBasket(id);}
+
+    public boolean deleteProduct(int id_basket, String name, int quantity){return basketRepo.deleteProduct(id_basket,name,quantity);}
+
+
 }

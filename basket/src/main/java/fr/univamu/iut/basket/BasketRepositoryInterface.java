@@ -11,6 +11,13 @@ public interface BasketRepositoryInterface {
         public List getAllBaskets();
 
 
+   public boolean createBasket(Basket basket);
 
 
+    boolean deleteBasket(int id);
+
+    boolean AddProduct(Product product);
+
+
+    boolean deleteProduct(int id_basket, String productName, int quantity);
 }
