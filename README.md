@@ -1,4 +1,4 @@
-# API-PANIERS
+<h1 align="center">Guide d’utilisation API Panier <br></h1>
 
 ### Pour accéder à tous les paniers disponibles il suffit de faire : 
 
